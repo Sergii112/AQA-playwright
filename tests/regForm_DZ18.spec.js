@@ -3,7 +3,8 @@ import { test, expect } from "@playwright/test";
 test.describe("Registration form", () => {
     test.describe("Name field validation", () => {
         test.beforeEach(async ({ page }) => {
-            await page.goto("https://qauto.forstudy.space/");
+            // await page.goto("https://qauto.forstudy.space/");
+            await page.goto("");
             const signUpBtn = page.locator('.btn-primary', {hasText: 'Sign Up'} );
             await signUpBtn.click();
         });
@@ -25,10 +26,12 @@ test.describe("Registration form", () => {
 
             await nameInput.fill("");
             await nameInput.press("Enter");
-            await nameInput.focus()
+            // await nameInput.focus()
             await nameInput.blur()
 
             await expect(errorMessage).toContainText("Name required");
+            await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
+
         });
 
         test("Negative test - wrong data input", async ({ page }) => {
@@ -38,10 +41,12 @@ test.describe("Registration form", () => {
 
             await nameInput.fill(invalidName);
             await nameInput.press("Enter");
-            await nameInput.focus()
+            // await nameInput.focus()
             await nameInput.blur()
 
             await expect(errorMessage).toContainText("Name is invalid");
+            await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
+
         });
 
         test("Negative test - wrong length input", async ({ page }) => {
@@ -51,10 +56,11 @@ test.describe("Registration form", () => {
 
             await nameInput.fill(invalidName);
             await nameInput.press("Enter");
-            await nameInput.focus()
+            // await nameInput.focus()
             await nameInput.blur()
 
             await expect(errorMessage).toContainText("Name has to be from 2 to 20 characters long");
+            await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
          });
     });
 
@@ -82,10 +88,11 @@ test.describe("Registration form", () => {
 
             await lastNameInput.fill("");
             await lastNameInput.press("Enter");
-            await lastNameInput.focus()
+            // await lastNameInput.focus()
             await lastNameInput.blur()
 
             await expect(errorMessage).toContainText("Last name required");
+            await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
         });
 
         test("Negative test - wrong data input", async ({ page }) => {
@@ -95,10 +102,11 @@ test.describe("Registration form", () => {
 
             await lastNameInput.fill(invalidName);
             await lastNameInput.press("Enter");
-            await lastNameInput.focus()
+            // await lastNameInput.focus()
             await lastNameInput.blur()
 
             await expect(errorMessage).toContainText("Last name is invalidLast name has to be from 2 to 20 characters long");
+            await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
         });
 
         test("Negative test - wrong length input", async ({ page }) => {
@@ -108,10 +116,11 @@ test.describe("Registration form", () => {
 
             await lastNameInput.fill(invalidName);
             await lastNameInput.press("Enter");
-            await lastNameInput.focus()
+            // await lastNameInput.focus()
             await lastNameInput.blur()
 
             await expect(errorMessage).toContainText("Last name has to be from 2 to 20 characters long");
+            await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
         });
     });
 
@@ -139,10 +148,11 @@ test.describe("Registration form", () => {
 
             await emailInput.fill("");
             await emailInput.press("Enter");
-            await emailInput.focus()
+            // await emailInput.focus()
             await emailInput.blur()
 
             await expect(errorMessage).toContainText("Email required");
+            await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
         });
 
         test("Negative test - wrong email format input", async ({ page }) => {
@@ -152,23 +162,24 @@ test.describe("Registration form", () => {
 
             await emailInput.fill(invalidEmail);
             await emailInput.press("Enter");
-            await emailInput.focus()
+            // await emailInput.focus()
             await emailInput.blur()
 
             await expect(errorMessage).toContainText("Email is incorrect");
-        });
-
-        test("Negative test - border color should be red on email input error", async ({ page }) => {
-            const emailInput = page.locator("#signupEmail");
-            const errorMessage = page.locator('.invalid-feedback');
-
-            await emailInput.fill("");
-            await emailInput.press("Enter");
-            await emailInput.focus()
-            await emailInput.blur()
-
             await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
         });
+
+    //     test("Negative test - border color should be red on email input error", async ({ page }) => {
+    //         const emailInput = page.locator("#signupEmail");
+    //         // const errorMessage = page.locator('.invalid-feedback');
+    //
+    //         await emailInput.fill("");
+    //         await emailInput.press("Enter");
+    //         await emailInput.focus()
+    //         await emailInput.blur()
+    //
+    //         // await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
+    //     });
     });
 
    test.describe("Password field validation", () => {
@@ -195,23 +206,26 @@ test.describe("Registration form", () => {
 
            await passwordInput.fill("");
            await passwordInput.press("Enter");
-           await passwordInput.focus()
+           // await passwordInput.focus()
            await passwordInput.blur()
 
            await expect(errorMessage).toContainText("Password required");
+           await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
        });
 
         test("Negative test - wrong password format input", async ({ page }) => {
            const passwordInput = page.locator("#signupPassword");
            const invalidPassword = "password";
-           const errorMessage = page.locator('.invalid-feedback');
+           //const errorMessage = page.locator('.invalid-feedback');
+            const errorMessage = passwordInput.locator(' + .invalid-feedback');
 
            await passwordInput.fill(invalidPassword);
            await passwordInput.press("Enter");
-           await passwordInput.focus()
+           // await passwordInput.focus()
            await passwordInput.blur()
 
            await expect(errorMessage).toContainText("Password has to be from 8 to 15 characters long and contain at least one integer, one capital, and one small letter");
+           await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
         });
    });
 
@@ -240,10 +254,11 @@ test.describe("Registration form", () => {
 
            await reEnterPasswordInput.fill("");
            await reEnterPasswordInput.press("Enter");
-           await reEnterPasswordInput.focus();
+           // await reEnterPasswordInput.focus();
            await reEnterPasswordInput.blur();
 
            await expect(errorMessage).toContainText("Re-enter password required");
+           await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
        });
 
        test("Negative test - non-matching password input", async ({ page }) => {
@@ -254,24 +269,25 @@ test.describe("Registration form", () => {
            await passwordInput.fill("SecurePassword1");
            await reEnterPasswordInput.fill("securePassword1");
            await reEnterPasswordInput.press("Enter");
-           await reEnterPasswordInput.focus();
+           // await reEnterPasswordInput.focus();
            await reEnterPasswordInput.blur();
 
            await expect(errorMessage).toContainText("Passwords do not match");
-       });
-
-       test("Negative test - border color should be red on re-enter password input error", async ({ page }) => {
-           const reEnterPasswordInput = page.locator("#signupRepeatPassword");
-           const errorMessage = page.locator('.invalid-feedback');
-
-           await reEnterPasswordInput.fill("");
-           await reEnterPasswordInput.press("Enter");
-           await reEnterPasswordInput.focus()
-           await reEnterPasswordInput.blur()
-
-
            await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
        });
+
+       // test("Negative test - border color should be red on re-enter password input error", async ({ page }) => {
+       //     const reEnterPasswordInput = page.locator("#signupRepeatPassword");
+       //     const errorMessage = page.locator('.invalid-feedback');
+       //
+       //     await reEnterPasswordInput.fill("");
+       //     await reEnterPasswordInput.press("Enter");
+       //     await reEnterPasswordInput.focus()
+       //     await reEnterPasswordInput.blur()
+       //
+       //
+       //     await expect(errorMessage).toHaveCSS("color", "rgb(220, 53, 69)");
+       // });
    });
 
     test.describe("Register button validation", () => {
@@ -298,8 +314,5 @@ test.describe("Registration form", () => {
             await registerButton.click();
         });
     });
-
-
-
 
 });
